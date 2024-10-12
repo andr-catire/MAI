@@ -60,11 +60,6 @@ let soundBarsLottie = bodymovin.loadAnimation({
 
 let trackList = [
     {
-        name: "Only",
-        artist: "Lee Hi",
-        path: "./music/only.mp3",
-    },
-    {
         name: "2 much",
         artist: "Justin bieber",
         path: "./music/2 much.mp3",
