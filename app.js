@@ -62,17 +62,17 @@ let trackList = [
     {
         name: "2 much",
         artist: "Justin bieber",
-        path: "./musicTP1/2 much.mp3",
+        path: "./music/2 much.mp3",
     },
     {
         name: "Anyone",
         artist: "Justin bieber",
-        path: "./musicTP1/Anyone.mp3",
+        path: "./music/Anyone.mp3",
     },
     {
         name: "Can't feel My face",
         artist: "The weekend",
-        path: "./musicTP1/Can't feel My face.mp3",
+        path: "./music/Can't feel My face.mp3",
     },
 ];
 
