@@ -32,6 +32,9 @@ let isPlaying = false;
 let isHidden = true;
 
 let currentTrack = document.createElement("audio");
+currentTrack.type = "audio/mp3"; // Add MIME type
+document.body.appendChild(currentTrack); // Append to DOM
+
 let soundBars = document.querySelector(".sound-bars");
 
 togglePlayer.addEventListener("click", function() {
@@ -87,6 +90,7 @@ function loadTrack(trackIndex){
     trackArtist.textContent = trackList[trackIndex].artist;
     currentTrack.addEventListener("ended", nextTrack);
     currentTrack.load();
+    currentTrack.play(); // Play the music initially
 }
 
 loadTrack(trackIndex);
