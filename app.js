@@ -65,19 +65,19 @@ let trackList = [
         path: "./music/only.mp3",
     },
     {
-        name: "Day & Night",
-        artist: "Jung Seung Hwan",
-        path: "./music/day and night.mp3",
+        name: "2 much",
+        artist: "Justin bieber",
+        path: "./music/2 much.mp3",
     },
     {
-        name: "Love of my Life",
-        artist: "Reyne",
-        path: "./music/love of my life.mp3",
+        name: "Anyone",
+        artist: "Justin bieber",
+        path: "./music/Anyone.mp3",
     },
     {
-        name: "The Only One",
-        artist: "Reyne",
-        path: "./music/the only one.mp3",
+        name: "Can't feel My face",
+        artist: "The weekend",
+        path: "./music/Can't feel My face.mp3",
     },
 ];
 
