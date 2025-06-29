@@ -1,82 +1,99 @@
+/* style.css */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Nuevas variables de color basadas en tu último CSS */
 :root {
-    --primary: #fff;
-    --bg-envelope-color: #ffeaf4;
-    --envelope-tab: #ffd6ec;
-    --envelope-cover: #ffe0f7;
-    --shadow-color: rgba(180, 160, 200, 0.18);
-    --txt-color: #7a5c7b;
-    --heart-color: #ffb6d5;
-    --bg-color: #fbeffb;
-    --accent: #b6e0fe;
-    --accent2: #e0ffe6;
-    --accent3: #f9e6ff;
+    --primary: #fff; /* Blanco puro para la carta */
+    --bg-envelope-color: #ffeaf4; /* Fondo del sobre: Rosa muy claro */
+    --envelope-tab: #ffd6ec;     /* Solapa del sobre: Rosa claro */
+    --envelope-cover: #ffe0f7;   /* Parte frontal del sobre: Rosa más claro aún */
+    --shadow-color: rgba(180, 160, 200, 0.18); /* Sombra suave púrpura/rosa */
+    --txt-color: #7a5c7b;        /* Color de texto: Púrpura suave */
+    --heart-color: #ffb6d5;      /* Color del corazón: Rosa más vibrante */
+    --bg-main: linear-gradient(135deg, #fbeffb 0%, #b6e0fe 100%); /* Nuevo fondo degradado para el body */
+    --bg-section: linear-gradient(120deg, #fbeffb 60%, #e0ffe6 100%); /* Fondo degradado para las secciones con la imagen */
+    --accent: #b6e0fe;   /* Azul claro de acento */
+    --accent2: #e0ffe6;  /* Verde claro de acento */
+    --accent3: #f9e6ff;  /* Púrpura muy claro de acento para bordes */
+
+    /* Colores del reproductor y ventanas que se alinean con los nuevos */
+    --bg-neutral-100: #fff; /* Usaremos blanco para las ventanas y el reproductor */
+    --border-main: #ffd6ec; /* Borde suave que se alinea con el sobre */
+    --text-pink: #e48ccf;   /* Rosa para textos importantes como trackname, love */
+    --text-purple: #b48ccf; /* Púrpura para trackartist */
 }
 
 body {
-    /* Tailwind CSS ya maneja el font-family en el body, pero si quieres asegurarte de que esta sea la fuente principal, está bien. */
-    font-family: 'Comic Neue', 'Segoe UI', Arial, sans-serif;
-    /* El background ya se está aplicando en el HTML con una imagen, este background podría ser redundante. */
-    /* background: linear-gradient(135deg, var(--bg-color) 0%, var(--accent) 100%); */
+    background: var(--bg-main); /* Nuevo fondo degradado */
+    font-family: 'Comic Neue', cursive, sans-serif; /* Tu fuente preferida */
+    overflow-x: hidden; /* Evita scroll horizontal */
 }
 
-/* El .one parece ser un contenedor para el fondo del sobre. */
-.one {
-    background: var(--bg-color); /* Puede ser útil si la imagen de fondo tiene transparencia */
+/* Estilos base para las secciones completas (carta, coco, catire, contador) */
+.section {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100vh;
+    transition: opacity 0.5s ease-in-out; /* Transición suave al cambiar de sección */
+    background-image: url('img/back.jpg'); /* Imagen de fondo para todas las secciones */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Opcional: para un efecto parallax suave */
 }
 
-/* Background general de las secciones */
-.background {
-    height: 100vh;
-    width: 100%;
-    position: relative;
-    /* Este background linear-gradient puede estar detrás de tu imagen de fondo.
-       Si quieres que la imagen de fondo con opacidad sea el único fondo, podrías eliminar esto o ajustarlo. */
-    background: linear-gradient(120deg, var(--bg-color) 60%, var(--accent2) 100%);
-}
-
-.background img {
+/* Estilo para la imagen de fondo de las secciones */
+.section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    opacity: 0.15; /* Aquí es donde la imagen se ve tenue */
-    filter: blur(2px);
+    background: var(--bg-section); /* Nuevo degradado de fondo */
+    opacity: 0.8; /* Opacidad para que la imagen se vea más suave detrás del degradado */
+    z-index: 0;
 }
 
+.section.hidden {
+    display: none;
+}
+
+/* Contenedor del sobre */
 .container {
     height: 100%;
     width: 100%;
-    top: 0;
     display: grid;
-    position: absolute;
     place-items: center;
+    z-index: 1; /* Para que esté sobre el fondo de la sección */
 }
 
-.container > .envelope-wrapper {
+/* Estilos del sobre principal y su animación */
+.envelope-wrapper {
     background: var(--bg-envelope-color);
     box-shadow: 0 0 40px var(--shadow-color);
-    border-radius: 24px;
+    border-radius: 24px; /* Tu border-radius del sobre */
     position: relative;
-    z-index: 10;
-    border: 2px solid var(--envelope-tab);
+    z-index: 5;
+    border: 2px solid var(--envelope-tab); /* Tu borde del sobre */
+    transition: transform 0.5s ease-in-out;
 }
 
 .envelope-wrapper > .envelope {
     position: relative;
     width: 500px;
     height: 240px;
+    overflow: hidden; /* Asegura que el contenido del sobre esté recortado */
 }
 
+/* Solapa superior del sobre */
 .envelope-wrapper > .envelope::before {
     content: "";
     position: absolute;
@@ -85,187 +102,267 @@ body {
     border-top: 150px solid var(--envelope-tab);
     border-right: 250px solid transparent;
     border-left: 250px solid transparent;
-    border-radius: 16px 16px 0 0;
+    border-radius: 16px 16px 0 0; /* Tu border-radius de la solapa */
     transform-origin: top;
-    transition: all 0.5s ease-in-out 0.7s;
+    transition: transform 0.5s ease-in-out 0.7s;
 }
 
+/* Parte frontal del sobre */
 .envelope-wrapper > .envelope::after {
     content: "";
     position: absolute;
     z-index: 2;
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
     border-top: 150px solid transparent;
     border-right: 250px solid var(--envelope-cover);
     border-bottom: 100px solid var(--envelope-cover);
     border-left: 250px solid var(--envelope-cover);
-    border-radius: 0 0 24px 24px;
+    border-radius: 0 0 24px 24px; /* Tu border-radius de la parte frontal */
 }
 
 .envelope > .letter {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 82%;
+    width: 82%; /* Tu ancho de la carta */
     height: auto;
-    max-height: 98%;
-    background: var(--primary);
+    max-height: 98%; /* Tu max-height de la carta */
+    background: var(--primary); /* Tu color de fondo de la carta */
     text-align: center;
-    transition: all 1s cubic-bezier(.77,0,.18,1);
-    box-shadow: 0 0 10px var(--shadow-color);
-    padding: 22px 18px;
+    transition: all 1s cubic-bezier(0.77, 0, 0.18, 1); /* Tu transición de la carta */
+    box-shadow: 0 0 10px var(--shadow-color); /* Tu sombra de la carta */
+    padding: 22px 18px; /* Tu padding de la carta */
     overflow-y: auto;
-    bottom: 0;
-    border-radius: 16px;
-    border: 1.5px solid var(--accent3);
+    bottom: 0; /* Tu posición inicial de la carta */
+    border-radius: 16px; /* Tu border-radius de la carta */
+    border: 1.5px solid var(--accent3); /* Tu borde de la carta */
 }
 
-.envelope > .letter > .text {
-    font-family: 'Comic Neue', cursive, sans-serif; /* Asegura esta fuente para el texto */
-    color: var(--txt-color);
+.letter .text {
+    font-family: 'Comic Neue', cursive, sans-serif;
+    color: var(--txt-color); /* Tu color de texto */
     text-align: left;
-    font-size: 14px;
-    line-height: 1.7;
+    font-size: 14px; /* Tu tamaño de fuente */
+    line-height: 1.7; /* Tu line-height */
+}
+
+.letter .text strong {
+    font-size: 0.89rem;
+}
+
+.letter .text p {
+    text-indent: 15px;
+    line-height: 1.5;
+}
+
+.love {
+    text-align: center;
+    font-weight: bold;
+    color: var(--text-pink); /* Usa el nuevo color de texto para el amor */
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+.pana {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+.pana img {
+    width: 1.5rem; /* Tu tamaño de imagen */
 }
 
 .heart {
     position: absolute;
     top: 51%;
     left: 50%;
-    width: 34px;
-    height: 34px;
-    background: var(--heart-color);
+    width: 34px; /* Tu ancho del corazón */
+    height: 34px; /* Tu altura del corazón */
+    background: var(--heart-color); /* Tu color del corazón */
     z-index: 4;
     transform: translate(-50%, -20%) rotate(45deg);
-    transition: transform 0.5s cubic-bezier(.77,0,.18,1) 1s;
-    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: transform 0.5s cubic-bezier(0.77, 0, 0.18, 1) 1s; /* Tu transición del corazón */
+    box-shadow: 0 2px 8px var(--shadow-color); /* Tu sombra del corazón */
     cursor: pointer;
-    border: 2px solid #fff0fa;
+    border: 2px solid #fff0fa; /* Tu borde del corazón */
+    border-radius: 4px; /* Ajuste para la forma del corazón */
 }
 
 .heart:before,
 .heart:after {
     content: "";
     position: absolute;
-    width: 34px;
-    height: 34px;
-    background-color: var(--heart-color);
+    width: 34px; /* Tu ancho */
+    height: 34px; /* Tu altura */
+    background-color: var(--heart-color); /* Tu color */
     border-radius: 50%;
 }
 
 .heart:before {
-    top: -17px;
+    top: -17px; /* Tu posición */
 }
 
 .heart:after {
-    left: 17px;
+    left: 17px; /* Tu posición */
 }
 
-/* Clases para abrir el sobre */
-.flap > .envelope::before {
+/* Clases para abrir el sobre (aplicadas a .envelope-wrapper) */
+.envelope-wrapper.flap > .envelope::before {
     transform: rotateX(180deg);
-    z-index: 0; /* Asegura que la parte superior del sobre se vaya hacia atrás */
+    z-index: 0;
 }
 
-.flap > .envelope > .letter {
-    bottom: calc(100% + 24px); /* Sube la carta por encima del sobre */
-    transform: translateX(-50%) scale(1.03);
+.envelope-wrapper.flap > .envelope > .letter {
+    bottom: calc(100% + 24px); /* Tu posición de la carta al abrir */
+    transform: translateX(-50%) scale(1.03); /* Tu transformación de la carta al abrir */
     transition-delay: 1s;
+    box-shadow: 0 10px 20px var(--shadow-color); /* Sombra para la carta al salir */
 }
 
-.flap > .heart {
-    transform: translate(-50%, -20%) rotate(90deg); /* Animación del corazón */
+.envelope-wrapper.flap > .heart {
+    transform: translate(-50%, -20%) rotate(90deg);
     transition-delay: 0.4s;
 }
 
-.love {
-    text-align: center;
-    font-weight: bold;
-    color: #e48ccf;
-    letter-spacing: 1px;
-    font-size: 1.1rem;
+/* Estilos de las "ventanas" (cards de About y Contador) */
+.window {
+    background-color: var(--bg-neutral-100); /* Blanco para el fondo de la ventana */
+    border: 2px solid var(--border-main); /* Borde suave */
+    border-radius: 18px; /* Más redondeado, como tu sobre */
+    box-shadow: 0 4px 24px var(--shadow-color); /* Sombra suave */
+    transition: all 150ms ease-in-out;
+    position: relative;
+    padding-bottom: 1.5rem;
+    z-index: 1; /* Para que esté sobre el fondo de la sección */
 }
 
-.pana {
-    width: 100%;
-    margin-top: .3rem;
+.window:hover {
+    box-shadow: 0 8px 32px var(--shadow-color); /* Sombra al hover */
+    transform: scale(1.03); /* Un poco menos de escala para que no sea tan brusco */
 }
 
-.pana img {
-    width: 1.5rem;
-    margin: auto;
+.window .flex { /* Para el header de la ventana */
+    border-bottom: 2px solid var(--border-main);
 }
 
-/* REVISIÓN DE LOS ESTILOS DE LOS GIFS EN LAS VENTANAS */
-/* Originalmente tenías un selector #window #gif img, pero en el HTML que me diste,
-   los GIFs están directamente dentro de #window con clases 'absolute'.
-   Vamos a ajustar esto para que los estilos de opacidad y tamaño al hacer hover
-   se apliquen a los GIFs de forma individual si lo deseas, o si hay un contenedor para ellos.
-   Si quieres que los GIFs solo aparezcan cuando se hace hover sobre #window,
-   la estructura HTML debe ser:
-   <div id="window">
-       <div class="gifs-container">
-           <img ...>
-           <img ...>
-           ...
-       </div>
-   </div>
-   Y luego aplicar el CSS al 'gifs-container'.
-
-   Si los quieres siempre visibles y solo quieres la animación del tamaño,
-   entonces la opacidad inicial debería ser 1, y solo cambiar el width.
-   Por ahora, ajusto la regla para que afecte a todas las imágenes dentro de #window
-   que sean hijos directos del contenedor de GIFs si existiera, o a las imágenes directas.
-   Considerando tu HTML, los GIFs tienen clases 'absolute' directamente, así que
-   esta regla es la que los afecta.
-*/
-.absolute img { /* Esto podría afectar a CUALQUIER imagen con clase 'absolute' */
-    opacity: 1; /* Por defecto visibles, si quieres que no lo estén al inicio, cámbialo a 0 */
-    transition: opacity .3s, width .3s;
-    /* width: 5rem; */ /* Tailwind ya te está dando un width, esto podría sobrescribirlo */
+/* Estilos para los GIFs que aparecen al hover en las tarjetas de "About" */
+.window .gif {
+    opacity: 0;
+    transition: opacity .3s, transform .3s;
+    pointer-events: none;
+    z-index: -1;
+    width: 8rem; /* Ajuste para el tamaño inicial de los GIFs */
 }
 
-/* Si quieres que los GIFs se agranden al pasar el ratón sobre la ventana */
-#window:hover .absolute img { /* Aplicar a los GIFs dentro de la ventana al hacer hover en la ventana */
-    /* opacity: 1; */ /* Si ya están visibles, no necesitas esto */
-    /* width: 11rem; */ /* Esto sobrescribiría Tailwind, usa clases de Tailwind o ¡important si es necesario */
+.window:hover .gif {
+    opacity: 1;
+    z-index: 1;
+    width: 10rem; /* Tamaño de los GIFs al hover */
 }
 
 
 /* Reproductor de música */
+#musicPlayerContainer {
+    transition: transform 0.75s cubic-bezier(0.075, 0.82, 0.165, 1), opacity 0.75s ease;
+}
+
+#musicPlayerContainer.hidden {
+    transform: translateX(-150%);
+    opacity: 0;
+    pointer-events: none;
+}
+
 .music-container {
-    /* La posición fija y z-index ya están en Tailwind, pero si necesitas anularlos, está bien. */
-    /* position: fixed; */
-    /* bottom: 24px; */
-    /* left: 24px; */
-    width: 450px; /* Define el ancho del contenedor del reproductor */
-    z-index: 100; /* Asegura que esté por encima de casi todo */
-    background: linear-gradient(90deg, #ffeaf4 60%, #e0ffe6 100%);
-    border-radius: 18px;
-    box-shadow: 0 4px 24px var(--shadow-color);
-    border: 2px solid #ffd6ec;
+    background: linear-gradient(90deg, var(--bg-envelope-color) 60%, var(--accent2) 100%); /* Tu degradado para el reproductor */
+    border: 2px solid var(--envelope-tab); /* Tu borde del reproductor */
+    border-radius: 18px; /* Tu border-radius del reproductor */
+    box-shadow: 0 4px 24px var(--shadow-color); /* Tu sombra del reproductor */
     transition: all 0.75s cubic-bezier(0.075, 0.82, 0.165, 1);
-    /* Estas propiedades ya las manejas con Tailwind en el HTML:
-       .music-container relative bg-neutral-100 py-3 px-3 border-2 z-10 rounded-md border-black flex items-center
-       Asegúrate de que no haya conflicto con los colores de fondo y bordes.
-    */
+    display: flex; /* Añadir flex para que los elementos se alineen */
+    align-items: center; /* Centrar verticalmente */
+    padding: 1rem 1.5rem; /* Padding interno */
+}
+
+.music-container.minimized {
+    width: 80px; /* Ancho cuando está minimizado, solo el botón toggle */
+    padding: 0.5rem;
+    justify-content: center;
+    border-radius: 9999px; /* Redondear al minimizar */
+    height: 80px; /* Asegurar que sea circular */
+}
+
+.music-container.minimized .avatar,
+.music-container.minimized .player {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
+}
+
+.toggle-player {
+    position: absolute; /* Para que esté en la esquina */
+    right: -1rem; /* Posición que tenías */
+    top: -1rem; /* Posición que tenías */
+    width: 2.5rem; /* Ajustar tamaño del botón de cierre/apertura */
+    height: 2.5rem;
+    border-radius: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-envelope-color); /* Fondo del botón toggle */
+    border: 1.5px solid var(--envelope-tab); /* Borde del botón toggle */
+    box-shadow: 0 2px 8px var(--shadow-color); /* Sombra del botón toggle */
+}
+
+.music-container.minimized .toggle-player {
+    position: static; /* Vuelve a posición normal cuando está minimizado */
+    transform: none;
+    width: 3rem; /* Tamaño del botón cuando está solo */
+    height: 3rem;
+}
+
+.avatar {
+    width: 4rem; /* Ancho del avatar */
+    margin-right: 1rem;
+}
+
+.avatar img {
+    border-radius: 0.5rem; /* Border-radius del avatar */
+    border: 2px solid var(--envelope-tab);
+    background-color: var(--primary);
+    box-shadow: 0 1px 4px var(--shadow-color);
 }
 
 .player {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     width: 100%;
-    height: 70px;
-    position: relative;
-    /* Esto podría estar causando que el player no se vea como esperas.
-       Si Tailwind ya lo está configurando como flex y align-items, etc.,
-       este CSS podría ser redundante o generar conflictos. */
+    height: 70px; /* Tu altura del reproductor */
+    position: relative; /* Para el posicionamiento del track-info */
+}
+
+.sound-bars-lottie {
+    position: absolute; /* Tu posición absoluta */
+    top: 50%;
+    left: 0.5rem; /* Tu posición izquierda */
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 60px; /* Tu ancho */
+    height: 60px; /* Tu alto */
+}
+
+.sound-bars {
+    width: 100%;
+    height: 100%;
 }
 
 .track-info {
-    position: absolute;
+    position: absolute; /* Tu posición absoluta */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -273,96 +370,113 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: calc(100% - 140px); /* Ajuste para dejar espacio a los botones */
     height: 100%;
-    transition: all .25s ease;
+    transition: all 0.25s ease;
     pointer-events: none;
-    /* Esto es importante si quieres que el texto no sea interactuable */
 }
 
 .trackname {
-    font-size: 1.5rem;
+    font-size: 1.5rem; /* Tu tamaño de fuente */
     font-weight: bold;
-    color: #e48ccf;
-    text-shadow: 0 1px 4px #fff3fa;
+    color: var(--text-pink); /* Tu color para el nombre de la canción */
+    text-shadow: 0 1px 4px #fff3fa; /* Tu sombra de texto */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .trackartist {
-    font-size: .9rem;
-    color: #b48ccf;
+    font-size: 0.9rem; /* Tu tamaño de fuente */
+    color: var(--text-purple); /* Tu color para el artista */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .track-nav {
-    gap: .5rem;
+    gap: 0.5rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    transition: all .25s ease;
-}
-
-/* Clases para el reproductor minimizado */
-.music-container.hide {
-    width: 140px; /* Ancho cuando está escondido */
-}
-
-.music-container.hide .track-info,
-.music-container.hide .track-nav {
-    transition: all 0s ease;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.toggle-player {
-    position: absolute;
-    right: -1rem; /* Mueve el botón fuera del contenedor */
-    top: -1rem;
-    width: 2rem;
-    z-index: 102; /* Más alto que el music-container */
-    border-radius: 100%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ffeaf4;
-    border: 1.5px solid #ffd6ec;
-    box-shadow: 0 2px 8px var(--shadow-color);
-}
-
-.sound-bars-lottie {
-    position: absolute;
-    top: 50%;
-    left: 0.5rem;
-    transform: translateY(-50%);
-    z-index: 1; /* Asegura que esté detrás de la info del track si lo deseas */
-}
-
-.sound-bars {
-    width: 60px;
-    height: 60px;
+    transition: all 0.25s ease;
+    position: absolute; /* Posicionar a la derecha */
+    right: 0.5rem;
 }
 
 .prev-track,
 .playpause-track,
 .next-track {
     cursor: pointer;
-    z-index: 101; /* Asegura que los botones sean clickeables */
+    z-index: 101;
     border-radius: 100%;
-    padding: .3rem;
-    background: #fff0fa;
-    border: 1.5px solid #ffd6ec;
+    padding: 0.3rem; /* Tu padding */
+    background: #fff0fa; /* Tu color de fondo de los botones */
+    border: 1.5px solid var(--envelope-tab); /* Tu borde de los botones */
     transition: background 0.2s;
+    box-shadow: 0 1px 4px var(--shadow-color);
 }
 
 .prev-track:hover,
 .playpause-track:hover,
 .next-track:hover {
-    background-color: #ffe0f7;
-    transition-duration: .1s;
+    background-color: var(--envelope-cover); /* Tu color de hover */
+    transition-duration: 0.1s;
+}
+
+.music-container.minimized .track-info,
+.music-container.minimized .track-nav {
+    transition: all 0s ease;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Clase para la animación de Lottie cuando la música está pausada */
 .paused .sound-bars-lottie {
     opacity: 0;
     transition: opacity 0.5s ease;
+}
+
+/* Estilos para el contador */
+#myCountdown > div {
+    background-color: var(--bg-neutral-100); /* Blanco para el fondo de las cajas del contador */
+    border: 2px solid var(--border-main);
+    border-radius: 18px; /* Más redondeado, como tu sobre */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 2px 10px var(--shadow-color); /* Sombra para las cajas individuales */
+}
+
+#myCountdown h1 {
+    font-size: 3.5rem; /* Ajustado para que se vea un poco más grande */
+    font-weight: bold;
+    color: var(--text-pink); /* Tu color para los números */
+}
+
+#myCountdown p {
+    font-size: 1.2rem; /* Ajustado para el texto */
+    font-weight: bold;
+    color: var(--txt-color); /* Tu color para el texto debajo de los números */
+}
+
+/* Botones genéricos de navegación dentro de las tarjetas */
+button:not(.toggle-player, .prev-track, .playpause-track, .next-track) {
+    background-color: var(--accent3); /* Color de fondo suave */
+    color: var(--txt-color); /* Color de texto */
+    border: 1.5px solid var(--envelope-tab); /* Borde suave */
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px; /* Redondeado suave */
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra ligera */
+}
+
+button:not(.toggle-player, .prev-track, .playpause-track, .next-track):hover {
+    background-color: var(--envelope-tab); /* Color de hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
