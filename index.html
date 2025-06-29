@@ -14,39 +14,37 @@
 </head>
 <body style="font-family: 'Comic Neue';" class="relative">
 
-    <!-- MUSIC PLAYER -->
     <div class="fixed left-6 bottom-6 z-10">
         <div class="music-container relative bg-neutral-100 py-3 px-3 border-2 z-10 rounded-md border-black flex items-center">
-            <div class="toggle-player bg-neutral-100 border-2 border-black">
+            <div class="toggle-player bg-neutral-100 border-2 border-black rounded-full">
                 <img class="w-full" src="icons/close.svg" alt="">
             </div>
             <div class="avatar absolute w-14">
                 <img class="w-full border-2 bg-white border-black rounded-md" src="icons/pinkheart.svg" alt="">
             </div>
-            <div class="player">
+            <div class="player flex items-center justify-end w-full h-[70px]">
                 <div class="sound-bars-lottie">
                     <div class="sound-bars"></div>
                 </div>
                 <div class="track-info -space-y-1">
-                    <div class="trackname">Only</div>
-                    <div class="trackartist">Track Artist</div>
+                    <div class="trackname text-center text-xl font-bold">Only</div>
+                    <div class="trackartist text-center text-sm">Track Artist</div>
                 </div>
-                <div class="track-nav">
-                    <div class="prev-track">
+                <div class="track-nav flex flex-row justify-center items-center gap-1">
+                    <div class="prev-track cursor-pointer z-20 rounded-full p-1 hover:bg-gray-300 transition-all duration-500">
                         <img class="w-7" src="icons/backplayer.svg" alt="">
                     </div>
-                    <div class="playpause-track">
+                    <div class="playpause-track cursor-pointer z-20 rounded-full p-1 hover:bg-gray-300 transition-all duration-500">
                         <img class="w-8" src="icons/play.svg" alt="">
                     </div>
-                    <div class="next-track">
-                        <img class="w-7" style="transform: rotate(180deg);" src="icons/backplayer.svg" alt="">
+                    <div class="next-track cursor-pointer z-20 rounded-full p-1 hover:bg-gray-300 transition-all duration-500">
+                        <img class="w-7 rotate-180" src="icons/backplayer.svg" alt="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- BACKGROUND -->
     <div class="background">
         <div class="one">
             <img src="img/back.jpg" alt="">
@@ -58,8 +56,7 @@
                                 <strong style="font-size: .89rem;">Dear Coco,</strong>
                                 <p style="text-indent: 15px;">
                                     Quiero decírtelo pero no puedo hacerlo frente a frente porque me enredo en tu mirada, me distraigo con tus labios y me envuelvo en tu sonrisa. Y entonces se me olvidó decírtelo.
-Debes saber que soy tan feliz contigo porque me haces reír, porque me haces temblar, porque me haces soñar. ERES LA MUJER DE MI VIDA, Por tu forma de colorear mi vida, por la energía que me das, por las risas compartidas y por los secretos desvelados, por todo eso eres especial. TE AMO CON TODO MI SER
-
+                                    Debes saber que soy tan feliz contigo porque me haces reír, porque me haces temblar, porque me haces soñar. ERES LA MUJER DE MI VIDA, Por tu forma de colorear mi vida, por la energía que me das, por las risas compartidas y por los secretos desvelados, por todo eso eres especial. TE AMO CON TODO MI SER
                                 </p>
                                 <p class="love">I LOVE YOU SO MUCH</p>
                                 <div class="pana">
@@ -73,16 +70,11 @@ Debes saber que soy tan feliz contigo porque me haces reír, porque me haces tem
             </div>
         </div>
     </div>
-    <!-- FIRST CARD -->
     <div class="w-full h-[100vh] z-0 relative">
-        <!-- BACKGROUND -->
         <img class="w-full h-full object-cover" src="img/back.jpg" alt="">
-        <!-- FIRST PAGE -->
         <div class="absolute top-0 h-full flex items-center justify-center flex-col w-full">
-            <!-- FIRST CARD -->
             <div id="window" class="bg-neutral-100 relative shadow-md hover:shadow-xl duration-150 hover:scale-105 rounded-md w-[34rem] flex justify-center flex-col border-2 border-black">
-                 <!-- GIFS -->
-                <div id="gif" class="absolute -top-20 -left-60">
+                    <div id="gif" class="absolute -top-20 -left-60">
                     <img class="w-full -rotate-12" src="https://media.tenor.com/Xmr01nUr0I0AAAAi/cute-dog.gif" alt="">
                 </div>
                 <div id="gif" class="absolute -bottom-20 -left-60">
@@ -124,7 +116,6 @@ Debes saber que soy tan feliz contigo porque me haces reír, porque me haces tem
                             Asombrosa,MIA, Admirable</p>
                     </div>
                 </div>
-                <!-- IMAGES -->
                 <div class="flex justify-center">
                     <div class="w-44 flex justify-center py-5 gap-3">
                         <img class="w-40" src="img/Bebita/1.jpeg" alt="">
@@ -135,15 +126,10 @@ Debes saber que soy tan feliz contigo porque me haces reír, porque me haces tem
             </div>
         </div>  
     </div>
-    <!-- SECOND CARD -->
     <div class="w-full h-[100vh] z-0 relative ">
-        <!-- BACKGROUND -->
         <img class="w-full h-full object-cover" src="img/back.jpg" alt="">
-        <!-- SECOND PAGE -->
         <div class="absolute top-0 h-full flex items-center justify-center flex-col w-full">
-            <!-- SECOND CARD -->
             <div id="window" class="bg-neutral-100 relative shadow-md hover:shadow-xl duration-150 hover:scale-105 rounded-md w-[34rem] flex justify-center flex-col border-2 border-black">
-                <!-- GIFS -->
                 <div id="gif" class="absolute -top-20 -left-60 w-40">
                     <img class="w-full -rotate-6" src="https://media.tenor.com/ULt1QoO_tc0AAAAj/cat-vibe-vibe-cat.gif" alt="">
                 </div>
@@ -186,7 +172,6 @@ Debes saber que soy tan feliz contigo porque me haces reír, porque me haces tem
                         Suyo, Amable, Suyo</p>
                     </div>
                 </div>
-                <!-- IMAGES -->
                 <div class="flex justify-center">
                     <div class="w-44 flex justify-center py-5 gap-3">
                         <img class="w-40" src="img/Bebita/1.1.jpeg" alt="">
@@ -197,14 +182,10 @@ Debes saber que soy tan feliz contigo porque me haces reír, porque me haces tem
             </div>
         </div>  
     </div>
-    <!-- FOURTH -->
     <div class="w-full h-[100vh] z-0 relative">
-        <!-- BACKGROUND -->
         <img class="w-full h-full object-cover" src="img/back.jpg" alt="">
         <div class="absolute top-0 w-full h-full flex justify-center items-center">
-            <!-- COUNTER -->
             <div class="flex bg-neutral-100 gap-5 relative border-2 z-10 border-black flex-col px-5 pb-3 shadow-md pt-9 rounded-md">
-                <!-- GIFS -->
                 <div class="absolute top-1 right-1 w-7">
                     <img class="w-full" src="icons/heart.svg" alt="">
                 </div>
@@ -221,7 +202,6 @@ Debes saber que soy tan feliz contigo porque me haces reír, porque me haces tem
                     <img class="w-full" src="https://media.tenor.com/ewJrc9fZeaQAAAAi/prots-masaj.gif" alt="">
                 </div>
 
-                <!-- DATE COUNTER -->
                 <div class="flex gap-5" id="myCountdown">
                     <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10">
                         <h1 id="years" class="text-6xl font-bold">2024</h1>
@@ -235,7 +215,6 @@ Debes saber que soy tan feliz contigo porque me haces reír, porque me haces tem
                         <h1 id="days" class="text-6xl font-bold">12</h1>
                         <p class="font-bold text-xl text-red-700">Days</p>
                     </div>
-                 
                 </div>
                 <h1 class="text-center font-bold text-base">Since August 13, 2024</h1>
             </div>
@@ -243,14 +222,7 @@ Debes saber que soy tan feliz contigo porque me haces reír, porque me haces tem
 
         </div>
     </div>
-    <script>
-        const envelope = document.querySelector('.envelope-wrapper');
-        envelope.addEventListener('click', () => {
-            envelope.classList.toggle('flap');
-            envelope.classList.toggle('open');
-        });
-    </script>
     
-    <script src="app.js"></script> 
+    <script src="app.js"></script>    
 </body>
 </html>
