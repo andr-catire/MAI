@@ -19,12 +19,15 @@
 }
 
 body {
-    background: linear-gradient(135deg, var(--bg-color) 0%, var(--accent) 100%);
+    /* Tailwind CSS ya maneja el font-family en el body, pero si quieres asegurarte de que esta sea la fuente principal, está bien. */
     font-family: 'Comic Neue', 'Segoe UI', Arial, sans-serif;
+    /* El background ya se está aplicando en el HTML con una imagen, este background podría ser redundante. */
+    /* background: linear-gradient(135deg, var(--bg-color) 0%, var(--accent) 100%); */
 }
 
+/* El .one parece ser un contenedor para el fondo del sobre. */
 .one {
-    background: var(--bg-color);
+    background: var(--bg-color); /* Puede ser útil si la imagen de fondo tiene transparencia */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -32,10 +35,13 @@ body {
     height: 100vh;
 }
 
+/* Background general de las secciones */
 .background {
     height: 100vh;
     width: 100%;
     position: relative;
+    /* Este background linear-gradient puede estar detrás de tu imagen de fondo.
+       Si quieres que la imagen de fondo con opacidad sea el único fondo, podrías eliminar esto o ajustarlo. */
     background: linear-gradient(120deg, var(--bg-color) 60%, var(--accent2) 100%);
 }
 
@@ -43,7 +49,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.15;
+    opacity: 0.15; /* Aquí es donde la imagen se ve tenue */
     filter: blur(2px);
 }
 
@@ -116,7 +122,7 @@ body {
 }
 
 .envelope > .letter > .text {
-    font-family: 'Comic Neue', cursive, sans-serif;
+    font-family: 'Comic Neue', cursive, sans-serif; /* Asegura esta fuente para el texto */
     color: var(--txt-color);
     text-align: left;
     font-size: 14px;
@@ -153,23 +159,23 @@ body {
 }
 
 .heart:after {
-    right: 17px;
+    left: 17px;
 }
 
 /* Clases para abrir el sobre */
 .flap > .envelope::before {
     transform: rotateX(180deg);
-    z-index: 0;
+    z-index: 0; /* Asegura que la parte superior del sobre se vaya hacia atrás */
 }
 
 .flap > .envelope > .letter {
-    bottom: calc(100% + 24px);
+    bottom: calc(100% + 24px); /* Sube la carta por encima del sobre */
     transform: translateX(-50%) scale(1.03);
     transition-delay: 1s;
 }
 
 .flap > .heart {
-    transform: translate(-50%, -20%) rotate(90deg);
+    transform: translate(-50%, -20%) rotate(90deg); /* Animación del corazón */
     transition-delay: 0.4s;
 }
 
@@ -191,33 +197,59 @@ body {
     margin: auto;
 }
 
-#window #gif img {
-    opacity: 0;
+/* REVISIÓN DE LOS ESTILOS DE LOS GIFS EN LAS VENTANAS */
+/* Originalmente tenías un selector #window #gif img, pero en el HTML que me diste,
+   los GIFs están directamente dentro de #window con clases 'absolute'.
+   Vamos a ajustar esto para que los estilos de opacidad y tamaño al hacer hover
+   se apliquen a los GIFs de forma individual si lo deseas, o si hay un contenedor para ellos.
+   Si quieres que los GIFs solo aparezcan cuando se hace hover sobre #window,
+   la estructura HTML debe ser:
+   <div id="window">
+       <div class="gifs-container">
+           <img ...>
+           <img ...>
+           ...
+       </div>
+   </div>
+   Y luego aplicar el CSS al 'gifs-container'.
+
+   Si los quieres siempre visibles y solo quieres la animación del tamaño,
+   entonces la opacidad inicial debería ser 1, y solo cambiar el width.
+   Por ahora, ajusto la regla para que afecte a todas las imágenes dentro de #window
+   que sean hijos directos del contenedor de GIFs si existiera, o a las imágenes directas.
+   Considerando tu HTML, los GIFs tienen clases 'absolute' directamente, así que
+   esta regla es la que los afecta.
+*/
+.absolute img { /* Esto podría afectar a CUALQUIER imagen con clase 'absolute' */
+    opacity: 1; /* Por defecto visibles, si quieres que no lo estén al inicio, cámbialo a 0 */
     transition: opacity .3s, width .3s;
-    width: 5rem;
+    /* width: 5rem; */ /* Tailwind ya te está dando un width, esto podría sobrescribirlo */
 }
 
-#gif {
-    pointer-events: none;
+/* Si quieres que los GIFs se agranden al pasar el ratón sobre la ventana */
+#window:hover .absolute img { /* Aplicar a los GIFs dentro de la ventana al hacer hover en la ventana */
+    /* opacity: 1; */ /* Si ya están visibles, no necesitas esto */
+    /* width: 11rem; */ /* Esto sobrescribiría Tailwind, usa clases de Tailwind o ¡important si es necesario */
 }
 
-#window:hover #gif img {
-    opacity: 1;
-    width: 11rem;
-}
 
 /* Reproductor de música */
 .music-container {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    width: 450px;
-    z-index: 100;
+    /* La posición fija y z-index ya están en Tailwind, pero si necesitas anularlos, está bien. */
+    /* position: fixed; */
+    /* bottom: 24px; */
+    /* left: 24px; */
+    width: 450px; /* Define el ancho del contenedor del reproductor */
+    z-index: 100; /* Asegura que esté por encima de casi todo */
     background: linear-gradient(90deg, #ffeaf4 60%, #e0ffe6 100%);
     border-radius: 18px;
     box-shadow: 0 4px 24px var(--shadow-color);
     border: 2px solid #ffd6ec;
     transition: all 0.75s cubic-bezier(0.075, 0.82, 0.165, 1);
+    /* Estas propiedades ya las manejas con Tailwind en el HTML:
+       .music-container relative bg-neutral-100 py-3 px-3 border-2 z-10 rounded-md border-black flex items-center
+       Asegúrate de que no haya conflicto con los colores de fondo y bordes.
+    */
 }
 
 .player {
@@ -227,6 +259,9 @@ body {
     width: 100%;
     height: 70px;
     position: relative;
+    /* Esto podría estar causando que el player no se vea como esperas.
+       Si Tailwind ya lo está configurando como flex y align-items, etc.,
+       este CSS podría ser redundante o generar conflictos. */
 }
 
 .track-info {
@@ -242,6 +277,7 @@ body {
     height: 100%;
     transition: all .25s ease;
     pointer-events: none;
+    /* Esto es importante si quieres que el texto no sea interactuable */
 }
 
 .trackname {
@@ -265,8 +301,9 @@ body {
     transition: all .25s ease;
 }
 
+/* Clases para el reproductor minimizado */
 .music-container.hide {
-    width: 140px;
+    width: 140px; /* Ancho cuando está escondido */
 }
 
 .music-container.hide .track-info,
@@ -278,10 +315,10 @@ body {
 
 .toggle-player {
     position: absolute;
-    right: -1rem;
+    right: -1rem; /* Mueve el botón fuera del contenedor */
     top: -1rem;
     width: 2rem;
-    z-index: 102;
+    z-index: 102; /* Más alto que el music-container */
     border-radius: 100%;
     cursor: pointer;
     display: flex;
@@ -297,7 +334,7 @@ body {
     top: 50%;
     left: 0.5rem;
     transform: translateY(-50%);
-    z-index: 1;
+    z-index: 1; /* Asegura que esté detrás de la info del track si lo deseas */
 }
 
 .sound-bars {
@@ -309,7 +346,7 @@ body {
 .playpause-track,
 .next-track {
     cursor: pointer;
-    z-index: 101;
+    z-index: 101; /* Asegura que los botones sean clickeables */
     border-radius: 100%;
     padding: .3rem;
     background: #fff0fa;
