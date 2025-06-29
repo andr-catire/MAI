@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"></html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,230 +8,160 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.5.3/lottie_svg.min.js"></script>
 </head>
-<body style="font-family: 'Comic Neue', cursive;" class="relative"></body>
+<body class="font-['Comic_Neue'] relative bg-neutral-50">
 
-    <!-- MUSIC PLAYER -->
-    <div class="fixed left-6 bottom-6 z-10"></div>
-        <div class="music-container relative bg-neutral-100 py-3 px-3 border-2 z-10 rounded-md border-black flex items-center">
-            <button class="toggle-player bg-neutral-100 border-2 border-black" aria-label="Close player"></button>
-                <img class="w-full" src="icons/close.svg" alt="Close">
+    <div id="musicPlayerContainer" class="fixed left-6 bottom-6 z-20 hidden">
+        <div class="music-container bg-neutral-100 border-2 border-black rounded-md flex items-center px-4 py-3 shadow-lg">
+            <button class="toggle-player bg-neutral-100 border-2 border-black rounded-full p-1 mr-3" onclick="toggleMusicPlayer()" aria-label="Toggle player">
+                <img src="icons/close.svg" alt="Close" class="w-6 h-6">
             </button>
-            <div class="avatar absolute w-14"></div>
-                <img class="w-full border-2 bg-white border-black rounded-md" src="icons/pinkheart.svg" alt="Avatar">
+            <div class="avatar w-14 mr-4">
+                <img src="icons/pinkheart.svg" alt="Avatar" class="w-full border-2 border-black rounded-md bg-white">
             </div>
-            <div class="player"></div>
-                <div class="sound-bars-lottie">
+            <div class="player flex items-center w-full h-[70px]">
+                <div class="sound-bars-lottie mr-3">
                     <div class="sound-bars"></div>
                 </div>
-                <div class="track-info -space-y-1">
-                    <div class="trackname">Only</div>
-                    <div class="trackartist">Track Artist</div>
+                <div class="track-info text-center mr-4">
+                    <div class="trackname text-xl font-bold">Only</div>
+                    <div class="trackartist text-sm">Track Artist</div>
                 </div>
                 <div class="track-nav flex gap-2">
-                    <button class="prev-track" aria-label="Previous track">
-                        <img class="w-7" src="icons/backplayer.svg" alt="Previous">
+                    <button class="prev-track rounded-full p-1 hover:bg-gray-300 transition" aria-label="Previous track">
+                        <img src="icons/backplayer.svg" alt="Prev" class="w-7">
                     </button>
-                    <button class="playpause-track" aria-label="Play/Pause">
-                        <img class="w-8" src="icons/play.svg" alt="Play/Pause">
+                    <button id="playPauseButton" class="playpause-track rounded-full p-1 hover:bg-gray-300 transition" aria-label="Play/Pause">
+                        <img id="playPauseIcon" src="icons/play.svg" alt="Play/Pause" class="w-8">
                     </button>
-                    <button class="next-track" aria-label="Next track">
-                        <img class="w-7" style="transform: rotate(180deg);" src="icons/backplayer.svg" alt="Next">
+                    <button class="next-track rounded-full p-1 hover:bg-gray-300 transition" aria-label="Next track">
+                        <img src="icons/backplayer.svg" alt="Next" class="w-7 rotate-180">
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- BACKGROUND & ENVELOPE -->
-    <div class="background">
-        <div class="one">
-            <img src="img/back.jpg" alt="Background" class="w-full h-full object-cover">
-            <div class="container">
-                <div class="envelope-wrapper cursor-pointer">
-                    <div class="envelope">
-                        <div class="letter">
-                            <div class="text">
-                                <strong style="font-size: .89rem;">Dear Coco,</strong>
-                                <p style="text-indent: 15px;">
-                                    Quiero decírtelo pero no puedo hacerlo frente a frente porque me enredo en tu mirada, me distraigo con tus labios y me envuelvo en tu sonrisa. Y entonces se me olvidó decírtelo.<br>
-                                    Debes saber que soy tan feliz contigo porque me haces reír, porque me haces temblar, porque me haces soñar. ERES LA MUJER DE MI VIDA, Por tu forma de colorear mi vida, por la energía que me das, por las risas compartidas y por los secretos desvelados, por todo eso eres especial. TE AMO CON TODO MI SER
-                                </p>
-                                <p class="love">I LOVE YOU SO MUCH</p>
-                                <div class="pana">
-                                    <img src="icons/heartarrow.svg" alt="Heart Arrow">
-                                </div>
+    <section id="section-letter" class="section relative w-full min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('img/back.jpg');">
+        <div class="container flex items-center justify-center">
+            <div class="envelope-wrapper relative cursor-pointer">
+                <div class="envelope">
+                    <div class="letter bg-white rounded-md shadow-lg p-6 border-2 border-black max-w-lg">
+                        <div class="text">
+                            <strong class="text-base">Dear Coco,</strong>
+                            <p class="mt-2 indent-4">
+                                Quiero decírtelo pero no puedo hacerlo frente a frente porque me enredo en tu mirada, me distraigo con tus labios y me envuelvo en tu sonrisa. Y entonces se me olvidó decírtelo.
+                                Debes saber que soy tan feliz contigo porque me haces reír, porque me haces temblar, porque me haces soñar. ERES LA MUJER DE MI VIDA, Por tu forma de colorear mi vida, por la energía que me das, por las risas compartidas y por los secretos desvelados, por todo eso eres especial. TE AMO CON TODO MI SER
+                            </p>
+                            <p class="love text-center text-lg font-bold text-pink-600 mt-4">I LOVE YOU SO MUCH</p>
+                            <div class="pana flex justify-center mt-2">
+                                <img src="icons/heartarrow.svg" alt="Heart Arrow" class="w-10">
                             </div>
                         </div>
+                        <div class="flex justify-center mt-6 gap-4">
+                            <button onclick="showSection('section-coco')" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded shadow">About COCO</button>
+                            <button onclick="showSection('section-catire')" class="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded shadow">About CATIRE</button>
+                            <button onclick="showSection('section-countdown')" class="bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded shadow">Tiempo Juntos</button>
+                        </div>
                     </div>
-                    <div class="heart"></div>
                 </div>
+                <div class="heart absolute -top-6 left-1/2 -translate-x-1/2"></div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- FIRST CARD -->
-    <section class="w-full h-[100vh] z-0 relative">
-        <img class="w-full h-full object-cover" src="img/back.jpg" alt="Background">
-        <div class="absolute top-0 h-full flex items-center justify-center flex-col w-full">
-            <div id="window" class="bg-neutral-100 relative shadow-md hover:shadow-xl duration-150 hover:scale-105 rounded-md w-[34rem] flex flex-col border-2 border-black">
-                <!-- GIFS -->
-                <div class="absolute -top-20 -left-60">
-                    <img class="w-full -rotate-12" src="https://media.tenor.com/Xmr01nUr0I0AAAAi/cute-dog.gif" alt="Cute dog">
-                </div>
-                <div class="absolute -bottom-20 -left-60">
-                    <img class="w-full rotate-12" src="https://media.tenor.com/X3MIBBH6ZgMAAAAi/doglookinghungryandsnacking-dog.gif" alt="Dog snacking">
-                </div>
-                <div class="absolute -top-20 -right-60">
-                    <img class="w-full rotate-3" src="https://media.tenor.com/xI8X94Z_emgAAAAi/puppy-dog.gif" alt="Puppy dog">
-                </div>
-                <div class="absolute -bottom-20 -right-60">
-                    <img class="w-full -rotate-12" src="https://media.tenor.com/l5ebZnCiFtoAAAAi/dog-dog-pop.gif" alt="Dog pop">
-                </div>
-                <div class="flex items-center px-1 py-1 justify-between w-full border-b-2 border-black">
-                    <img class="w-5" src="icons/back.svg" alt="Back">
+    <section id="section-coco" class="section hidden relative w-full min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('img/back.jpg');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="window bg-neutral-100 border-2 border-black rounded-md shadow-md hover:shadow-xl duration-150 hover:scale-105 w-full max-w-2xl flex flex-col relative">
+                <img class="gif absolute -top-20 -left-60 w-32 -rotate-12" src="https://media.tenor.com/Xmr01nUr0I0AAAAi/cute-dog.gif" alt="Cute dog">
+                <img class="gif absolute -bottom-20 -left-60 w-32 rotate-12" src="https://media.tenor.com/X3MIBBH6ZgMAAAAi/doglookinghungryandsnacking-dog.gif" alt="Dog snacking">
+                <img class="gif absolute -top-20 -right-60 w-32 rotate-3" src="https://media.tenor.com/xI8X94Z_emgAAAAi/puppy-dog.gif" alt="Puppy dog">
+                <img class="gif absolute -bottom-20 -right-60 w-32 -rotate-12" src="https://media.tenor.com/l5ebZnCiFtoAAAAi/dog-dog-pop.gif" alt="Dog pop">
+                <div class="flex items-center px-3 py-2 justify-between border-b-2 border-black">
+                    <button onclick="showSection('section-letter')" class="w-5" aria-label="Back to letter"><img src="icons/back.svg" alt="Back"></button>
                     <h1 class="font-extrabold text-lg">MI PEQUEÑA PRINCESA</h1>
-                    <img class="w-6" src="icons/x.svg" alt="Close">
+                    <button onclick="showSection('section-letter')" class="w-6" aria-label="Close"><img src="icons/x.svg" alt="Close"></button>
                 </div>
-                <div class="relative border-b-2 border-black">
-                    <div class="absolute bottom-2 left-12 w-14">
-                        <img class="rotate-12 w-full" src="icons/fingerheart.png" alt="Finger heart">
-                    </div>
-                    <div class="absolute top-3 right-3 w-12">
-                        <img class="rotate-12 w-full" src="icons/dog.svg" alt="Dog">
-                    </div>
-                    <div class="absolute bottom-2 right-14 w-11">
-                        <img class="-rotate-12 w-full" src="icons/herheart.svg" alt="Her heart">
-                    </div>
-                    <div class="absolute top-3 left-3 w-10">
-                        <img class="-rotate-12 w-full" src="icons/herbleh.svg" alt="Her bleh">
-                    </div>
-                    <div class="text-center py-5">
+                <div class="relative border-b-2 border-black py-4">
+                    <img class="absolute bottom-2 left-12 w-14 rotate-12" src="icons/fingerheart.png" alt="Finger heart">
+                    <img class="absolute top-3 right-3 w-12 rotate-12" src="icons/dog.svg" alt="Dog">
+                    <img class="absolute bottom-2 right-14 w-11 -rotate-12" src="icons/herheart.svg" alt="Her heart">
+                    <img class="absolute top-3 left-3 w-10 -rotate-12" src="icons/herbleh.svg" alt="Her bleh">
+                    <div class="text-center">
                         <h1 class="font-extrabold text-5xl">About COCO</h1>
-                        <p class="text-base">Inteligente, MIA, Asombrosa, MIA, Admirable</p>
+                        <p class="text-base mt-2">Inteligente, MIA, Asombrosa, MIA, Admirable</p>
                     </div>
                 </div>
-                <!-- IMAGES -->
-                <div class="flex justify-center"></div>
-                    <div class="w-44 flex justify-center py-5 gap-3">
-                        <img class="w-40" src="img/Bebita/1.jpeg" alt="Coco 1">
-                        <img class="w-40" src="img/Bebita/2.jpeg" alt="Coco 2">
-                        <img class="w-40" src="img/Bebita/3.jpg" alt="Coco 3">
-                    </div>
+                <div class="flex justify-center py-5 gap-3 flex-wrap">
+                    <img class="w-32 rounded shadow" src="img/Bebita/1.jpeg" alt="Coco 1">
+                    <img class="w-32 rounded shadow" src="img/Bebita/2.jpeg" alt="Coco 2">
+                    <img class="w-32 rounded shadow" src="img/Bebita/3.jpg" alt="Coco 3">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECOND CARD -->
-    <section class="w-full h-[100vh] z-0 relative">
-        <img class="w-full h-full object-cover" src="img/back.jpg" alt="Background">
-        <div class="absolute top-0 h-full flex items-center justify-center flex-col w-full">
-            <div id="window" class="bg-neutral-100 relative shadow-md hover:shadow-xl duration-150 hover:scale-105 rounded-md w-[34rem] flex flex-col border-2 border-black">
-                <!-- GIFS -->
-                <div class="absolute -top-20 -left-60 w-40">
-                    <img class="w-full -rotate-6" src="https://media.tenor.com/ULt1QoO_tc0AAAAj/cat-vibe-vibe-cat.gif" alt="Cat vibe">
-                </div>
-                <div class="absolute -bottom-20 -left-64 w-44">
-                    <img class="w-full -rotate-6" src="https://media.tenor.com/u56nhKZD24AAAAAi/catkiss-cat.gif" alt="Cat kiss">
-                </div>
-                <div class="absolute -top-20 -right-64 w-44">
-                    <img class="w-full rotate-6" src="https://media.tenor.com/cqQ9eq9xIrgAAAAi/cat.gif" alt="Cat">
-                </div>
-                <div class="absolute -bottom-20 -right-64 w-40">
-                    <img class="w-full rotate-6" src="https://media.tenor.com/SI5tOTnHS34AAAAi/verycat-twitch-cat-twitch-emote.gif" alt="Very cat">
-                </div>
-                <div class="flex items-center px-1 py-1 justify-between w-full border-b-2 border-black">
-                    <img class="w-5" src="icons/back.svg" alt="Back">
+    <section id="section-catire" class="section hidden relative w-full min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('img/back.jpg');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="window bg-neutral-100 border-2 border-black rounded-md shadow-md hover:shadow-xl duration-150 hover:scale-105 w-full max-w-2xl flex flex-col relative">
+                <img class="gif absolute -top-20 -left-64 w-36 -rotate-6" src="https://media.tenor.com/ULt1QoO_tc0AAAAj/cat-vibe-vibe-cat.gif" alt="Cat vibe">
+                <img class="gif absolute -bottom-20 -left-64 w-36 -rotate-6" src="https://media.tenor.com/u56nhKZD24AAAAAi/catkiss-cat.gif" alt="Cat kiss">
+                <img class="gif absolute -top-20 -right-64 w-36 rotate-6" src="https://media.tenor.com/cqQ9eq9xIrgAAAAi/cat.gif" alt="Cat">
+                <img class="gif absolute -bottom-20 -right-64 w-36 rotate-6" src="https://media.tenor.com/SI5tOTnHS34AAAAi/verycat-twitch-cat-twitch-emote.gif" alt="Very cat">
+                <div class="flex items-center px-3 py-2 justify-between border-b-2 border-black">
+                    <button onclick="showSection('section-letter')" class="w-5" aria-label="Back to letter"><img src="icons/back.svg" alt="Back"></button>
                     <h1 class="font-extrabold text-lg">TU NEGRO</h1>
-                    <img class="w-6" src="icons/x.svg" alt="Close">
+                    <button onclick="showSection('section-letter')" class="w-6" aria-label="Close"><img src="icons/x.svg" alt="Close"></button>
                 </div>
-                <div class="relative border-b-2 border-black"></div>
-                    <div class="absolute bottom-3 left-12 w-11"></div>
-                        <img class="rotate-12 w-full" src="icons/gaming.svg" alt="Gaming">
-                    </div>
-                    <div class="absolute top-3 right-3 w-12">
-                        <img class="rotate-12 w-full" src="icons/cat.svg" alt="Cat">
-                    </div>
-                    <div class="absolute bottom-2 right-14 w-12">
-                        <img class="-rotate-12 w-full" src="icons/cool.svg" alt="Cool">
-                    </div>
-                    <div class="absolute top-3 left-3 w-10">
-                        <img class="-rotate-12 w-full" src="icons/hisbleh.svg" alt="His bleh">
-                    </div>
-                    <div class="text-center py-5">
+                <div class="relative border-b-2 border-black py-4">
+                    <img class="absolute bottom-3 left-12 w-11 rotate-12" src="icons/gaming.svg" alt="Gaming">
+                    <img class="absolute top-3 right-3 w-12 rotate-12" src="icons/cat.svg" alt="Cat">
+                    <img class="absolute bottom-2 right-14 w-12 -rotate-12" src="icons/cool.svg" alt="Cool">
+                    <img class="absolute top-3 left-3 w-10 -rotate-12" src="icons/hisbleh.svg" alt="His bleh">
+                    <div class="text-center">
                         <h1 class="font-extrabold text-5xl">About CATIRE</h1>
-                        <p class="text-base">Hermoso, Suyo, Caballeroso, Suyo, Amable, Suyo</p>
+                        <p class="text-base mt-2">Hermoso, Suyo, Caballeroso, Suyo, Amable, Suyo</p>
                     </div>
                 </div>
-                <!-- IMAGES -->
-                <div class="flex justify-center"></div>
-                    <div class="w-44 flex justify-center py-5 gap-3">
-                        <img class="w-40" src="img/Bebita/1.1.jpeg" alt="Catire 1">
-                        <img class="w-40 object-cover" src="img/Bebita/5.jpg" alt="Catire 2">
-                        <img class="w-40 object-cover" src="img/Bebita/2.2.jpeg" alt="Catire 3">
-                    </div>
+                <div class="flex justify-center py-5 gap-3 flex-wrap">
+                    <img class="w-32 rounded shadow" src="img/Bebita/1.1.jpeg" alt="Catire 1">
+                    <img class="w-32 rounded shadow object-cover" src="img/Bebita/5.jpg" alt="Catire 2">
+                    <img class="w-32 rounded shadow object-cover" src="img/Bebita/2.2.jpeg" alt="Catire 3">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOURTH CARD / COUNTER -->
-    <section class="w-full h-[100vh] z-0 relative">
-        <img class="w-full h-full object-cover" src="img/back.jpg" alt="Background">
-        <div class="absolute top-0 w-full h-full flex justify-center items-center">
-            <div class="flex bg-neutral-100 gap-5 relative border-2 z-10 border-black flex-col px-5 pb-3 shadow-md pt-9 rounded-md">
-                <!-- GIFS -->
-                <div class="absolute top-1 right-1 w-7">
-                    <img class="w-full" src="icons/heart.svg" alt="Heart">
-                </div>
-                <div class="absolute -top-20 -left-56 w-44">
-                    <img class="w-full -rotate-6" src="https://media.tenor.com/dg7Th23TzFUAAAAi/cat_-vodk.gif" alt="Cat Vodka">
-                </div>
-                <div class="absolute -bottom-3 -right-52 w-44"></div>
-                    <img class="w-full" src="https://media.tenor.com/LrSL7XDKVbgAAAAi/peachcat-cat.gif" alt="Peachcat">
-                </div>
-                <div class="absolute top-[-8rem] z-0 right-28 w-36">
-                    <img class="w-full" src="https://media.tenor.com/A5VhCveZ_ygAAAAi/peach-and-goma-peach-goma.gif" alt="Peach and Goma">
-                </div>
-                <div class="absolute -bottom-48 z-0 left-16 w-40">
-                    <img class="w-full" src="https://media.tenor.com/ewJrc9fZeaQAAAAi/prots-masaj.gif" alt="Prots Masaj">
-                </div>
-                <!-- DATE COUNTER -->
-                <div class="flex gap-5" id="myCountdown">
-                    <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10"></div>
-                        <h1 id="years" class="text-6xl font-bold">2024</h1>
-                        <p class="font-bold text-xl text-red-700">Year</p>
+    <section id="section-countdown" class="section hidden relative w-full min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('img/back.jpg');">
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="flex flex-col bg-neutral-100 border-2 border-black rounded-md shadow-md px-8 pb-6 pt-12 relative gap-6 max-w-3xl w-full">
+                <img class="absolute top-1 right-1 w-7" src="icons/heart.svg" alt="Heart">
+                <img class="absolute -top-20 -left-56 w-32 -rotate-6" src="https://media.tenor.com/dg7Th23TzFUAAAAi/cat_-vodk.gif" alt="Cat Vodka">
+                <img class="absolute -bottom-3 -right-52 w-32" src="https://media.tenor.com/LrSL7XDKVbgAAAAi/peachcat-cat.gif" alt="Peachcat">
+                <img class="absolute -top-32 right-28 w-28" src="https://media.tenor.com/A5VhCveZ_ygAAAAi/peach-and-goma-peach-goma.gif" alt="Peach and Goma">
+                <img class="absolute -bottom-48 left-16 w-32" src="https://media.tenor.com/ewJrc9fZeaQAAAAi/prots-masaj.gif" alt="Prots Masaj">
+                <div class="flex gap-5 justify-center" id="myCountdown">
+                    <div class="bg-transparent border-2 border-black rounded-md w-32 h-44 flex flex-col justify-center items-center gap-6">
+                        <h1 id="years" class="text-5xl font-bold">0</h1>
+                        <p class="font-bold text-lg text-red-700">Years</p>
                     </div>
-                    <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10"></div>
-                        <h1 id="months" class="text-6xl font-bold">10</h1>
-                        <p class="font-bold text-xl text-red-700">Months</p>
+                    <div class="bg-transparent border-2 border-black rounded-md w-32 h-44 flex flex-col justify-center items-center gap-6">
+                        <h1 id="months" class="text-5xl font-bold">0</h1>
+                        <p class="font-bold text-lg text-red-700">Months</p>
                     </div>
-                    <div class="bg-transparent border-2 border-black rounded-md w-40 h-52 flex justify-center items-center flex-col gap-10">
-                        <h1 id="days" class="text-6xl font-bold">12</h1>
-                        <p class="font-bold text-xl text-red-700">Days</p>
+                    <div class="bg-transparent border-2 border-black rounded-md w-32 h-44 flex flex-col justify-center items-center gap-6">
+                        <h1 id="days" class="text-5xl font-bold">0</h1>
+                        <p class="font-bold text-lg text-red-700">Days</p>
                     </div>
                 </div>
-                <h1 class="text-center font-bold text-base">Since August 13, 2024</h1>
+                <h1 class="text-center font-bold text-base mt-4">Since August 13, 2024</h1>
+                <button onclick="showSection('section-letter')" class="bg-gray-300 hover:bg-gray-400 text-black px-4 py-2 rounded shadow self-center mt-4">Volver</button>
             </div>
         </div>
     </section>
-
-    <script>
-        // Envelope open/close animation
-        document.querySelector('.envelope-wrapper').addEventListener('click', function () {
-            this.classList.toggle('flap');
-            this.classList.toggle('open');
-        });
-    </script>
-    <script src="app.js"></script>
-</body>
-</html>
-
-
 
     <script src="app.js"></script>
 </body>
