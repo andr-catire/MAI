@@ -1,9 +1,10 @@
-*{
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box; /* Añadido para un mejor manejo del box model */
 }
 
-:root{
+:root {
     --primary: #fff;
     --bg-envelope-color: #f5edd1;
     --envelope-tab: #ecdeb8;
@@ -11,52 +12,56 @@
     --shadow-color: rgba(0, 0, 0, 0.2);
     --txt-color: #444;
     --heart-color: rgb(252, 8, 231);
-  }
-  .one{
+}
+
+.one {
     background-color: #cccccc;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    background: var(--bg-color);
+    /* box-sizing: border-box;  Se movió al selector universal */
+    background: var(--bg-color); /* Asegúrate de que --bg-color esté definido si lo usas en otro lugar, o elimínalo si no es necesario */
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-  }
+    height: 100vh; /* Ajustado para que ocupe el alto completo de la ventana */
+}
 
-  .background{
+.background {
     height: 100vh;
     width: 100%;
     position: relative;
-  }
-  .one{
-    width: 100%;
-    height: 100%;
-  }
-  .background img{
+}
+
+.background img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  
-  .container {
+}
+
+.container {
     height: 100%;
     width: 100%;
-    top: 1.5rem;
+    top: 0; /* Ajustado a 0 para centrar verticalmente si es necesario */
     display: grid;
     position: absolute;
     place-items: center;
-  }
-  .container > .envelope-wrapper {
+}
+
+.container > .envelope-wrapper {
     background: var(--bg-envelope-color);
     box-shadow: 0 0 40px var(--shadow-color);
-  }
-  .envelope-wrapper > .envelope {
+    position: relative; /* Asegura que el z-index funcione correctamente para el sobre */
+    z-index: 10; /* Le da prioridad al sobre sobre el fondo */
+}
+
+.envelope-wrapper > .envelope {
     position: relative;
     width: 500px;
     height: 240px;
-  }
-  .envelope-wrapper > .envelope::before {
+}
+
+.envelope-wrapper > .envelope::before {
     content: "";
     position: absolute;
     top: 0;
@@ -66,8 +71,9 @@
     border-left: 250px solid transparent;
     transform-origin: top;
     transition: all 0.5s ease-in-out 0.7s;
-  }
-  .envelope-wrapper > .envelope::after {
+}
+
+.envelope-wrapper > .envelope::after {
     content: "";
     position: absolute;
     z-index: 2;
@@ -77,27 +83,33 @@
     border-right: 250px solid var(--envelope-cover);
     border-bottom: 100px solid var(--envelope-cover);
     border-left: 250px solid var(--envelope-cover);
-  }
-  .envelope > .letter {
+}
+
+.envelope > .letter {
     position: absolute;
-    right: 20%;
-    bottom: 0;
-    width: 60%;
-    height: 98%;
+    /* Ajustes para que la carta salga completamente */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; /* Un poco más de ancho para la carta */
+    height: auto; /* Permite que la altura se ajuste al contenido */
+    max-height: 98%; /* Para que no exceda el alto del sobre inicialmente */
     background: var(--primary);
     text-align: center;
     transition: all 1s ease-in-out;
     box-shadow: 0 0 5px var(--shadow-color);
-    padding: 15px 15px 50px 15px;
-  }
-  
-  .envelope > .letter > .text {
+    padding: 15px; /* Padding uniforme */
+    overflow-y: auto; /* Agrega scroll si el contenido es muy largo */
+    bottom: 0; /* Posición inicial abajo dentro del sobre */
+}
+
+.envelope > .letter > .text {
     font-family: 'Comic Neue';
     color: var(--txt-color);
     text-align: left;
     font-size: 12px;
-  }
-  .heart {
+}
+
+.heart {
     position: absolute;
     top: 51%;
     left: 50%;
@@ -109,148 +121,181 @@
     transition: transform 0.5s ease-in-out 1s;
     box-shadow: 0 1px 6px var(--shadow-color);
     cursor: pointer;
-  }
-  .heart:before, 
-  .heart:after {
+}
+
+.heart:before,
+.heart:after {
     content: "";
     position: absolute;
     width: 30px;
     height: 30px;
     background-color: rgb(255, 131, 151);
     border-radius: 50%;
-  }
-  .heart:before {
+}
+
+.heart:before {
     top: -15.5px;
-  }
-  .heart:after {
+}
+
+.heart:after {
     right: 15.5px;
-  }
-  .flap > .envelope:before {
+}
+
+/* Clases para abrir el sobre */
+.flap > .envelope::before {
     transform: rotateX(180deg);
     z-index: 0;
-  }
-  .flap > .envelope > .letter {
-    bottom: 140px;
-    transform: scale(1.5);
+}
+
+.flap > .envelope > .letter {
+    /* Nueva posición para que la carta "salga" completamente */
+    bottom: calc(100% + 20px); /* Ajusta este valor si necesitas más espacio */
+    transform: translateX(-50%) scale(1); /* No escalamos la carta al salir */
     transition-delay: 1s;
-  }
-  .flap > .heart {
-    transform: rotate(90deg);
+}
+
+.flap > .heart {
+    transform: translate(-50%, -20%) rotate(90deg); /* Mantener centrado el corazón al girar */
     transition-delay: 0.4s;
-  }
-  .love{
+}
+
+.love {
     text-align: center;
     font-weight: bold;
-  }
-  .pana{
+}
+
+.pana {
     width: 100%;
     margin-top: .3rem;
-  }
-  .pana img{
+}
+
+.pana img {
     width: 1.5rem;
     margin: auto;
-  }
+}
 
-  #window #gif img{
+#window #gif img {
     opacity: 0;
     transition: opacity .3s, width .3s;
     width: 5rem;
-  }
-  #gif{
-    pointer-events: none;
-  }
+}
 
-  #window:hover #gif img{
+#gif {
+    pointer-events: none;
+}
+
+#window:hover #gif img {
     opacity: 1;
     width: 11rem;
-  }
+}
 
-  .music-container{
-    position: absolute;
-    bottom: 0;
-    left: 0;
+/* Reproductor de música */
+.music-container {
+    position: fixed; /* Cambiado de absolute a fixed */
+    bottom: 24px; /* Equivalente a bottom-6 de Tailwind */
+    left: 24px;   /* Equivalente a left-6 de Tailwind */
     width: 450px;
-    z-index: 1;
+    z-index: 100; /* Asegura que esté por encima de todo */
     transition: all 0.75s cubic-bezier(0.075, 0.82, 0.165, 1);
-  }
+}
 
-  .player{
+.player {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end; /* Alinea los controles a la derecha */
     align-items: center;
     width: 100%;
     height: 70px;
-  }
+    position: relative; /* Necesario para posicionar track-info y sound-bars */
+}
 
-  .track-info{
+.track-info {
     position: absolute;
-    top: 0;
-    left: -.3rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el texto */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
     width: 100%;
+    height: 100%;
     transition: all .25s ease;
-  }
+    pointer-events: none; /* Permite hacer clic a través de él si es necesario */
+}
 
-  .trackname{
+.trackname {
     font-size: 1.5rem;
     font-weight: bold;
-    pointer-events: none;
-  }
-  .trackartist{
+}
+
+.trackartist {
     font-size: .8rem;
-    pointer-events: none;
-  }
-  .track-nav{
-    gap: .2rem;
+}
+
+.track-nav {
+    gap: .5rem; /* Separación entre botones */
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     transition: all .25s ease;
-  }
+}
 
-  .music-container.hide {
+.music-container.hide {
     width: 140px;
-  }
+}
 
-  .music-container.hide .track-info,
-  .music-container.hide .track-nav {
+.music-container.hide .track-info,
+.music-container.hide .track-nav {
     transition: all 0s ease;
     opacity: 0;
-  }
+    pointer-events: none; /* Deshabilita clics cuando está oculto */
+}
 
-  .toggle-player{
+.toggle-player {
     position: absolute;
     right: -1rem;
     top: -1rem;
     width: 2rem;
-    z-index: 2;
+    z-index: 102; /* Más alto que el reproductor para que sea clicable */
     border-radius: 100%;
     cursor: pointer;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-  .sound-bars-lottie{
+.sound-bars-lottie {
     position: absolute;
-    top: 1.1rem;
-    left: 4.5rem;
-  }
-  .sound-bars{
-    width: 100%;
+    top: 50%;
+    left: 0.5rem; /* Ajustado para que esté al lado del corazón */
+    transform: translateY(-50%);
+    z-index: 1; /* Detrás del corazón y los controles */
+}
+
+.sound-bars {
     width: 60px;
     height: 60px;
-  }
-  .prev-track, .playpause-track, .next-track{
+}
+
+.prev-track,
+.playpause-track,
+.next-track {
     cursor: pointer;
-    z-index: 100;
+    z-index: 101; /* Asegura que los controles estén por encima de las barras */
     border-radius: 100%;
     padding: .3rem;
-  }
+}
 
-  .prev-track:hover, .playpause-track:hover, .next-track:hover{
+.prev-track:hover,
+.playpause-track:hover,
+.next-track:hover {
     background-color: rgb(190, 190, 190);
-    transition-duration: .5s;
-  }
+    transition-duration: .1s; /* Transición más rápida para el hover */
+}
+
+/* Clase para la animación de Lottie cuando la música está pausada */
+.paused .sound-bars-lottie {
+    opacity: 0; /* Oculta las barras cuando está pausado */
+    transition: opacity 0.5s ease;
+}
